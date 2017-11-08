@@ -12,10 +12,10 @@ class Scraper
   def initialize
     data = YAML.load_file("data.yml")
     # Grabs the information from the yml file and stores it as separate variables.
-    @url = "#{data['QPR']['Website']}"
-    @container ="#{data['QPR']['Item_Container']}" # This is the parent selector for both headline and image
-    @headline = "#{data['QPR']['Headline_CSS']}"
-    @image = "#{data['QPR']['Image_CSS']}"
+    @url = "#{data['AFCB']['Website']}"
+    @container ="#{data['AFCB']['Item_Container']}" # This is the parent selector for both headline and image
+    @headline = "#{data['AFCB']['Headline_CSS']}"
+    @image = "#{data['AFCB']['Image_CSS']}"
     puts ""
     puts "Storing the following URL: #{@url}"
     puts "Storing the following Article Parent CSS: #{@container}"

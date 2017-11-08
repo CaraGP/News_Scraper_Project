@@ -3,3 +3,9 @@ QPR:
  Item_Container: ".list-item"
  Headline_CSS: ".list-item__header"
  Image_CSS: ".list-item__image img.image"
+
+AFCB:
+ Website: "https://www.afcb.co.uk/news"
+ Item_Container: ".contentListing__body"
+ Headline_CSS: ".contentListing__title"
+ Image_CSS: ".row.imageBackgroundCover__img"
