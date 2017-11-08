@@ -1,11 +1,17 @@
 QPR:
- Website: "https://www.qpr.co.uk/news/"
- Item_Container: ".list-item"
- Headline_CSS: ".list-item__header"
- Image_CSS: ".list-item__image img.image"
+ website: "https://www.qpr.co.uk/news/"
+ container: ".list-item"
+ headline: ".list-item__header"
+ image: ".list-item__image img.image"
 
 AFCB:
- Website: "https://www.afcb.co.uk/news"
- Item_Container: ".contentListing__item"
- Headline_CSS: ".contentListing__title"
- Image_CSS: ".imageBackgroundCover__img"
+ website: "https://www.afcb.co.uk/news"
+ container: ".contentListing__item"
+ headline: ".contentListing__title"
+ image: ".imageBackgroundCover__img"
+
+NUFC:
+ website: "https://www.nufc.co.uk/news"
+ container: ".news-grid"
+ headline: ".hero-card__title"
+ image: ".imageBackgroundCover__img"

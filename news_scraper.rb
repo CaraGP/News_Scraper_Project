@@ -12,16 +12,13 @@ class Scraper
   def initialize
     data = YAML.load_file("data.yml")
     # Grabs the information from the yml file and stores it as separate variables.
-    @url = "#{data['AFCB']['Website']}"
-    @container ="#{data['AFCB']['Item_Container']}" # This is the parent selector for both headline and image
-    @headline = "#{data['AFCB']['Headline_CSS']}"
-    @image = "#{data['AFCB']['Image_CSS']}"
+    data["QPR"].each { |key, value| instance_variable_set("@#{key}", value)}
     puts ""
-    puts "Storing the following URL: #{@url}"
+    puts "Storing the following URL: #{@website}"
     puts "Storing the following Article Parent CSS: #{@container}"
     puts "Storing the following Headline CSS: #{@headline}"
     puts "Storing the following Image CSS: #{@image}"
-    doc = HTTParty.get("#{@url}")
+    doc = HTTParty.get("#{@website}")
     @parse_page ||= Nokogiri::HTML(doc) # Memorised the @parse_page so it only gets assigned once
   end
 
