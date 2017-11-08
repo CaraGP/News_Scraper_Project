@@ -33,13 +33,13 @@ class Scraper
   def get_headlines
     headline = item_container.css(@headline).map { |headline| headline.text }
     puts ""
-    puts "Found titles:"
+    puts "Found headlines:"
     puts headline
     headline
   end
 
   def get_images
-    image_urls = item_container.css(@image).map { |image| image.attr('src') }
+    image_urls = item_container.css(@image).map { |image| image.attr('src') || image.attr('data-src') }
     puts ""
     puts "Found images:"
     puts image_urls
@@ -47,7 +47,7 @@ class Scraper
   end
 
   scraper = Scraper.new
-  headline = scraper.get_headlines
+  headlines = scraper.get_headlines
   images = scraper.get_images
 
   # Takes the data and lays it out nicely, saving it to a file.
@@ -57,9 +57,9 @@ class Scraper
       puts ""
       puts "Saving article #{index + 1}"
       f.puts "<li>- - - News Article: #{index + 1} - - -"
-      puts "#{index + 1}: #{headline[index]}"
+      puts "#{index + 1}: #{headlines[index]}"
       image_file_name = "#{index + 1}.jpg"
-      f.puts "<img src=\"#{image_file_name}\"> | Headline: #{headline[index]}</li>"
+      f.puts "<img src=\"#{image_file_name}\"> | Headline: #{headlines[index]}</li>"
 
       # Saving the images found to the directory
       puts "Saving image: #{image_file_name}"

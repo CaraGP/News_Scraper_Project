@@ -6,6 +6,6 @@ QPR:
 
 AFCB:
  Website: "https://www.afcb.co.uk/news"
- Item_Container: ".contentListing__body"
+ Item_Container: ".contentListing__item"
  Headline_CSS: ".contentListing__title"
- Image_CSS: ".row.imageBackgroundCover__img"
+ Image_CSS: ".imageBackgroundCover__img"
