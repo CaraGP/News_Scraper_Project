@@ -1,3 +1,5 @@
 QPR:
  Website: "https://www.qpr.co.uk/news/"
+ Item_Container: ".list-item"
  Headline_CSS: ".list-item__header"
+ Image_CSS: ".list-item__image img.image"

@@ -1,6 +1,7 @@
 require 'HTTParty'
 require 'Nokogiri'
 require 'open-uri'
+require 'yaml'
 
 # Used the tutorial located here: https://medium.com/@LindaHaviv/the-beginner-s-guide-scraping-in-ruby-cheat-sheet-c4f9c26d1b8c
 
@@ -9,32 +10,44 @@ class Scraper
   attr_accessor :parse_page
 
   def initialize
-    doc = HTTParty.get("https://www.qpr.co.uk/news/")
+    data = YAML.load_file("data.yml")
+    # Grabs the information from the yml file and stores it as separate variables.
+    @url = "#{data['QPR']['Website']}"
+    @container ="#{data['QPR']['Item_Container']}" # This is the parent selector for both headline and image
+    @headline = "#{data['QPR']['Headline_CSS']}"
+    @image = "#{data['QPR']['Image_CSS']}"
+    puts ""
+    puts "Storing the following URL: #{@url}"
+    puts "Storing the following Article Parent CSS: #{@container}"
+    puts "Storing the following Headline CSS: #{@headline}"
+    puts "Storing the following Image CSS: #{@image}"
+    doc = HTTParty.get("#{@url}")
     @parse_page ||= Nokogiri::HTML(doc) # Memorised the @parse_page so it only gets assigned once
   end
 
-  def get_names
-    titles = item_container.css(".list-item__header").map { |name| name.text }
+
+  def item_container
+    parse_page.css(@container)
+  end
+
+  def get_headlines
+    headline = item_container.css(@headline).map { |headline| headline.text }
     puts ""
     puts "Found titles:"
-    puts titles
-    titles
+    puts headline
+    headline
   end
 
   def get_images
-    image_urls = item_container.css(".list-item__image").css("img.image").map { |image| image.attr('src') }
+    image_urls = item_container.css(@image).map { |image| image.attr('src') }
     puts ""
     puts "Found images:"
     puts image_urls
     image_urls
   end
 
-  def item_container
-    parse_page.css(".list-item")
-  end
-
   scraper = Scraper.new
-  names = scraper.get_names
+  headline = scraper.get_headlines
   images = scraper.get_images
 
   # Takes the data and lays it out nicely, saving it to a file.
@@ -44,10 +57,11 @@ class Scraper
       puts ""
       puts "Saving article #{index + 1}"
       f.puts "<li>- - - News Article: #{index + 1} - - -"
-      puts "#{index + 1}: #{names[index]}"
+      puts "#{index + 1}: #{headline[index]}"
       image_file_name = "#{index + 1}.jpg"
-      f.puts "<img src=\"#{image_file_name}\"> | Headline: #{names[index]}</li>"
+      f.puts "<img src=\"#{image_file_name}\"> | Headline: #{headline[index]}</li>"
 
+      # Saving the images found to the directory
       puts "Saving image: #{image_file_name}"
       File.open(image_file_name, 'wb'){ |image_file|
         image_file << open("#{images[index]}").read
