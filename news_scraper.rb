@@ -44,10 +44,10 @@ site_data.each do |site|
   (0..2).each do |index| # Three dots don't include last digit. Behave like 0..image_links -1
     puts ""
     puts "Saving article #{index + 1}"
-    html += "<div>- - - News Article: #{index + 1} - - -"
+    html += "<div><h2>- - - News Article: #{index + 1} - - -</h2>"
     puts "#{index + 1}: #{headlines[index]}"
     image_file_name = "#{site[0]}-#{index + 1}.jpg"
-    html += "<img src=\"#{image_file_name}\"> | Headline: #{headlines[index]}</div>"
+    html += "<img src=\"#{image_file_name}\"> <h2>- - - Headline - - -</h2> <p><strong>#{headlines[index]}</strong></p></div>"
 
     # Saving the images found to the directory
     puts "Saving image: #{image_file_name}"
